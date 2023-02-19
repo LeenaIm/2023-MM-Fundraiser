@@ -1,5 +1,7 @@
 # Functions go here
 
+
+
 # Checks user has entered yes / no to a question
 def yes_no (question) :
 
@@ -17,18 +19,37 @@ def yes_no (question) :
 
         else:
             print ()
-            print ("Please answer yes / no")
+            print ("Please enter yes / no")
             print ()
+
+
+# checks that user response is not blank
+def not_blank(question):
+
+    while True:
+        response = input(question)
+
+        if response == "":
+            print("Sorry this can't be blank. Please try again")
+        else:
+            return response
 
 # main routine starts here
 
 # set maximum number of tickets below
 MAX_TICKETS = 3
+tickets_sold = 0
+
+# Ask user if they want to see the instructions
+want_instructions = yes_no("Do you want to read the instructions")
+
+if want_instructions == "yes":
+    print("Instructions go here")
 
 # loop to sell tickets
-tickets_sold = 0
+
 while tickets_sold < MAX_TICKETS:
-    name = input("Please enter your name or 'xxx' to quit: ")
+    name = not_blank("Enter your name (or 'xxx' to quit) ")
 
     if name == 'xxx':
         break
