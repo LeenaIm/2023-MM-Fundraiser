@@ -1,29 +1,27 @@
 # Functions go here
 
 # Checks user has entered yes / no to a question
-def yes_no (question) :
-
+def yes_no(question):
     valid = False
     while not valid:
-        response = input (question) .lower()
+        response = input(question).lower()
 
-        if response == "yes" or response == "y" :
+        if response == "yes" or response == "y":
             response = "yes"
             return response
 
-        elif response == "no" or response == "n" :
+        elif response == "no" or response == "n":
             response = "no"
             return response
 
         else:
-            print ()
-            print ("Please enter yes / no")
-            print ()
+            print()
+            print("Please enter yes / no")
+            print()
 
 
 # checks that user response is not blank
 def not_blank(question):
-
     while True:
         response = input(question)
 
@@ -32,9 +30,9 @@ def not_blank(question):
         else:
             return response
 
+
 # checks users enter an integer to a given question
 def num_check(question):
-
     while True:
 
         try:
@@ -49,7 +47,6 @@ def num_check(question):
 
 # Calculate the ticket price based on the age
 def calc_ticket_price(var_age):
-
     # ticket is $7.50 for users under 16
     if var_age < 16:
         price = 7.5
@@ -63,7 +60,6 @@ def calc_ticket_price(var_age):
         price = 6.5
 
     return price
-
 
 
 # set maximum number of tickets below
