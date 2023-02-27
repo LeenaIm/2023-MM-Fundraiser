@@ -1,3 +1,6 @@
+import pandas
+
+
 # Functions go here
 
 # checks that user response is not blank
@@ -55,15 +58,31 @@ def string_checker(question, num_letters, valid_responses):
             if response == item[:num_letters] or response == item:
                 return item
 
-            print(error)
+        print(error)
+
+
+# currency formatting function
+def currency(x):
+    return "${:.2f}".format(x)
 
 
 # set maximum number of tickets below
-MAX_TICKETS = 3
+MAX_TICKETS = 5
 tickets_sold = 0
 
 yes_no_list = ["yes", "no"]
 payment_list = ["cash", "credit", "ca", "cr"]
+
+# dictionaries to hold ticket details
+all_names = []
+all_tickets_costs = []
+all_surcharge = []
+
+mini_movie_dict = {
+    "Name": all_names,
+    "Ticket Price": all_tickets_costs,
+    "Surcharge": all_surcharge
+}
 
 # Ask user if they want to see the instructions
 want_instructions = string_checker("Do you want to read the instructions (y/n): ", 1, yes_no_list)
@@ -91,12 +110,50 @@ while tickets_sold < MAX_TICKETS:
 
     # calculate ticket cost
     ticket_cost = calc_ticket_price(age)
-    print("Age: {}, Ticket Price: ${:.2f}".format(age, ticket_cost))
 
     # get payment method
-    pay_method = string_checker("Choose a payment method (cash / credit): ", 2, payment_list)
+    pay_method = string_checker("Choose a payment method (cash / credit): ", 1, payment_list)
+
+    if pay_method == "cash":
+        surcharge = 0
+    else:
+        # calculate %% surcharge if users are paying by credit card
+        surcharge = ticket_cost * 0.05
 
     tickets_sold += 1
+
+    # add ticket name, cost and surcharge to lists
+    all_names.append(name)
+    all_tickets_costs.append(ticket_cost)
+    all_surcharge.append(surcharge)
+
+# create data frame from dictionary to organise information
+mini_movie_frame = pandas.DataFrame(mini_movie_dict)
+mini_movie_frame = mini_movie_frame.set_index('Name')
+
+# Calculate the total ticket cost (ticket + surcharge)
+mini_movie_frame['Total'] = mini_movie_frame['Surcharge'] \
+                            + mini_movie_frame['Ticket Price']
+
+# Calculate the profit for each ticket
+mini_movie_frame['Profit'] = mini_movie_frame['Ticket Price'] - 5
+
+# Calculate ticket and profit totals
+total = mini_movie_frame['Total'].sum()
+profit = mini_movie_frame['Profit'].sum()
+
+print("---- Ticket Data ----")
+print()
+
+# output table with ticket data
+print(mini_movie_frame)
+
+print()
+print("---- Ticket Cost / Profit ----")
+
+# output total ticket sales and profit
+print("Total Ticket Sales: ${:.2f}".format(total))
+print("Total Profit : ${:.2f}".format(profit))
 
 # Output number of tickets sold
 if tickets_sold == MAX_TICKETS:
