@@ -112,7 +112,7 @@ while tickets_sold < MAX_TICKETS:
     ticket_cost = calc_ticket_price(age)
 
     # get payment method
-    pay_method = string_checker("Choose a payment method (cash / credit): ", 1, payment_list)
+    pay_method = string_checker("Choose a payment method (cash / credit): ", 2, payment_list)
 
     if pay_method == "cash":
         surcharge = 0
@@ -142,6 +142,11 @@ mini_movie_frame['Profit'] = mini_movie_frame['Ticket Price'] - 5
 total = mini_movie_frame['Total'].sum()
 profit = mini_movie_frame['Profit'].sum()
 
+# Currency Formatting (uses currency function)
+add_dollars = ['Ticket Price', 'Surcharge', 'Total', "Profit"]
+for var_item in add_dollars:
+    mini_movie_frame[var_item] = mini_movie_frame[var_item].apply(currency)
+
 print("---- Ticket Data ----")
 print()
 
@@ -152,7 +157,7 @@ print()
 print("---- Ticket Cost / Profit ----")
 
 # output total ticket sales and profit
-print("Total Ticket Sales: ${:.2f}".format(total))
+print("Total Ticket Sales : ${:.2f}".format(total))
 print("Total Profit : ${:.2f}".format(profit))
 
 # Output number of tickets sold
