@@ -2,6 +2,7 @@ import pandas
 import random
 from datetime import date
 
+
 # Functions go here
 
 
@@ -193,6 +194,7 @@ day = today.strftime("%d")
 month = today.strftime("%m")
 year = today.strftime("%Y")
 
+print()
 heading = "---- Mini Movie Fundraiser Ticket Data ({}/{}/{}) ----\n".format(day, month, year)
 filename = "MMF_{}_{}_{}".format(year, month, day)
 
@@ -201,8 +203,8 @@ mini_movie_string = pandas.DataFrame.to_string(mini_movie_frame)
 
 # create strings for printing...
 ticket_cost_heading = "\n----- Ticket Cost / Profit ------"
-total_tickets_sales = "Total Ticket Sales: ${}".format(total)
-total_profit = "Total Profit: ${}".format(profit)
+total_tickets_sales = "Total Ticket Sales : ${:.2f}".format(total)
+total_profit = "Total Profit: ${:.2f}".format(profit)
 
 # shows users how many tickets have been sold
 if tickets_sold == MAX_TICKETS:
@@ -237,27 +239,3 @@ for item in to_write:
 
 # close file
 text_file.close()
-
-print()
-print("---- Ticket Data ----")
-print()
-
-# output table with ticket data
-print(mini_movie_frame)
-
-print()
-print("---- Ticket Cost / Profit ----")
-
-# output total ticket sales and profit
-print("Total Ticket Sales : ${:.2f}".format(total))
-print("Total Profit : ${:.2f}".format(profit))
-
-print()
-print('---- Raffle Winner ----')
-print("Congratulations {}. You have won ${} ie: your ticket is free".format(winner_name, total_won))
-print()
-# Output number of tickets sold
-if tickets_sold == MAX_TICKETS:
-    print("Congratulations you have sold all the tickets")
-else:
-    print("You have sold {} ticket/s. There is {} ticket/s remaining".format(tickets_sold, MAX_TICKETS - tickets_sold))
